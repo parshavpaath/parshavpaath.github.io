@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>पार्श्वपाठ Studio V3</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Playfair+Display:wght@500;600&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe6;--plum:#4b2c40;--rust:#a85d3e;--ink:#392534;--muted:#82766c;--line:#ded3c4}
+*{box-sizing:border-box}body{margin:0;background:#e9e2d8;color:var(--ink);font-family:"DM Sans",sans-serif}
+header{position:sticky;top:0;background:#f8f4edee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 4%;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.brand{display:flex;gap:10px;align-items:center}.brand img{width:48px;height:48px;object-fit:contain;border-radius:6px}.brandname{font:700 20px "Noto Serif Devanagari"}.tag{font:10px "Noto Serif Devanagari";color:var(--muted)}
+nav{display:flex;gap:8px}nav button{background:transparent;color:#695b52;padding:10px 12px}nav button.active{background:#eadfd2;color:var(--plum)}
+main{max-width:1280px;margin:auto;padding:26px 18px 55px}.hero{text-align:center;padding:8px 0 25px}.eyebrow{font-size:10px;letter-spacing:2.5px;color:var(--rust);font-weight:700}.hero h1{font:500 clamp(30px,5vw,48px) "Playfair Display";margin:10px 0}.hero p{font:14px "Noto Serif Devanagari";color:var(--muted)}
+.layout{display:grid;grid-template-columns:350px 1fr;gap:20px;align-items:start}.panel,.social{background:#f9f6f0;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 12px 34px #4432250b}
+.panel h2,.social h2{font-size:11px;letter-spacing:1.7px;color:#796b61}.section{border-bottom:1px solid #e8dfd4;padding-bottom:16px;margin-bottom:16px}.section:last-child{border:0;margin:0;padding:0}
+label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input{width:100%;border:1px solid #d9cec0;background:#fffdf8;border-radius:8px;padding:11px;color:#38202e;font:13px "DM Sans";outline:none}textarea{min-height:110px;resize:vertical;font:15px/1.8 "Noto Serif Devanagari"}input:focus,textarea:focus{border-color:var(--rust)}
+.hint{font-size:10px;color:#8b8077;line-height:1.5;margin-top:6px}.templates{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.tpl{border:1px solid #d8cfc3;border-radius:8px;padding:8px;background:#fffdf8;text-align:left;cursor:pointer;font-size:11px}.tpl.active{border:1.5px solid var(--rust);background:#f5eae0}.chip{height:26px;border-radius:4px;margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap}button{border:0;border-radius:8px;padding:11px 13px;font-weight:700;font-size:11px;cursor:pointer}.primary{background:var(--plum);color:white;flex:1}.secondary{background:#ece4d9;color:#503a3c}
+.preview{background:#e4ddd2;border:1px solid #d5cabe;border-radius:14px;padding:18px;min-height:650px}.previewhead{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1.5px;color:#796b61;margin-bottom:14px}.stage{display:flex;justify-content:center;align-items:center;min-height:590px}
+.poster{width:min(100%,465px);aspect-ratio:4/5;position:relative;overflow:hidden;background:#f5f0e6;padding:12% 10%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 18px 45px #382b2024;color:#38202e}
+.poster:before{content:"";position:absolute;inset:0;opacity:.2;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E")}
+.poster:after{content:"";position:absolute;inset:16px;border:1px solid #9d806b38}.topmark{position:absolute;top:8%;font:13px "Noto Serif Devanagari";letter-spacing:2px;color:#94664f;z-index:2}.quote{z-index:2;position:relative;white-space:pre-wrap;overflow-wrap:anywhere;font:500 clamp(20px,3.2vw,31px)/1.8 "Noto Serif Devanagari"}.signature{z-index:2;margin-top:25px;font:17px "Noto Serif Devanagari";color:#9c5a40}.bottom{position:absolute;bottom:8%;font-size:8px;letter-spacing:2px;color:#9b8b7b;z-index:2}
+.cutout{background:#eee6d8}.cutout .quote{background:#fffaf0;padding:7% 6%;box-shadow:7px 9px 0 #d5c3af,0 14px 24px #3c2d2020;transform:rotate(-1deg);clip-path:polygon(1% 3%,8% 1%,15% 2%,23% 0,31% 2%,40% 1%,49% 2%,58% 0,68% 2%,78% 1%,88% 2%,99% 0,98% 98%,89% 99%,79% 97%,69% 100%,59% 98%,49% 100%,39% 98%,29% 99%,19% 97%,9% 100%,1% 98%)}
+.blueink{background:#f4eddf}.blueink .quote,.blueink .signature{font-family:"Kalam","Noto Serif Devanagari";color:#29476c;transform:rotate(-.5deg)}.diary{background:#e9dfcc}.diary .quote{background:repeating-linear-gradient(transparent 0 45px,#a5b1b54d 46px,#a5b1b54d 47px);padding:12px}
+.midnight{background:#30212b;color:#f4eadc}.midnight:after{border-color:#b77b5c77}.midnight .topmark,.midnight .signature{color:#d19a78}.midnight .quote{color:#f4eadc}.midnight .bottom{color:#c1a997}.highlight{background:linear-gradient(transparent 58%,#dca46b99 58% 91%,transparent 91%)}
+.social{margin-top:20px}.socialgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.socialitem{padding:9px;border:1px solid #e2d8cb;background:#fffdf8;border-radius:8px}.socialitem label{font-size:11px}.socialitem input{font-size:10px;padding:9px}.links{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:16px}.links a{font-size:11px;color:#76594d;text-decoration:none;border-bottom:1px solid #c9a58f}.foot{text-align:center;color:#92867c;font-size:10px;padding:24px}
+.view{display:none}.view.active{display:block}
+.reels-shell{max-width:520px;margin:0 auto}.reels-intro{text-align:center;margin:0 0 14px}.reels-intro h2{font:500 26px "Playfair Display";margin:8px}.reels-intro p{font:13px "Noto Serif Devanagari";color:var(--muted)}
+.reels-layout{display:grid;grid-template-columns:1fr;gap:14px}.reel-frame{height:min(78vh,790px);min-height:560px;position:relative;overflow:hidden;border-radius:18px;background:#30212b;box-shadow:0 18px 50px #32241d30;touch-action:pan-y;user-select:none}
+.reel-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:17% 13%;color:#f4eadc;background:#30212b;transition:transform .38s cubic-bezier(.2,.75,.25,1),opacity .38s}
+.reel-card:before{content:"";position:absolute;inset:18px;border:1px solid #b77b5c70;pointer-events:none}
+.reel-card.paper{background:#f5f0e6;color:#38202e}.reel-card.blue{background:#f4eddf;color:#29476c}.reel-card.earth{background:#e9dfcc;color:#44352c}.reel-card.ink{background:#1d2934;color:#f0e9dc}
+.reel-brand{font:15px "Noto Serif Devanagari";letter-spacing:2px;position:absolute;top:9%;opacity:.8}.reel-quote{font:500 clamp(25px,5vw,39px)/1.85 "Noto Serif Devanagari";white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;z-index:1}.reel-sign{font:17px "Noto Serif Devanagari";margin-top:34px;opacity:.8}.reel-footer{position:absolute;bottom:8%;font-size:9px;letter-spacing:2px;opacity:.65}
+.reel-actions{position:absolute;right:13px;bottom:17%;display:flex;flex-direction:column;gap:12px;z-index:4}.reel-actions button{width:42px;height:42px;border-radius:50%;padding:0;background:#ffffffdf;color:#352632;font-size:17px}.reel-count{position:absolute;left:16px;bottom:16px;color:#fff;font-size:11px;background:#0005;padding:7px 10px;border-radius:20px;z-index:4}
+.reel-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);color:#fff9;font-size:10px;letter-spacing:1px;z-index:3;white-space:nowrap}
+.reel-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.reel-controls button{padding:12px 16px}.reel-editor{background:#f9f6f0;border:1px solid var(--line);border-radius:14px;padding:16px}.reel-editor h3{margin:0 0 10px;font:600 16px "Noto Serif Devanagari"}.quote-list{display:grid;gap:8px;margin-top:12px}.quote-row{display:flex;align-items:center;gap:8px;padding:9px;background:#fffdf8;border:1px solid #e2d8cb;border-radius:8px}.quote-row span{flex:1;font:12px/1.6 "Noto Serif Devanagari";white-space:pre-wrap}.quote-row button{padding:7px 9px;background:#ece4d9}.small-note{font-size:10px;color:#8b8077;line-height:1.6}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.preview{order:1;min-height:0}.panel{order:2}.stage{min-height:0}.socialgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){header{padding:8px 12px}.brand img{width:40px;height:40px}.brandname{font-size:17px}nav button{font-size:10px;padding:9px 8px}main{padding:18px 11px 40px}.reel-frame{height:calc(100dvh - 190px);min-height:510px;max-height:780px;border-radius:12px}.reel-quote{font-size:clamp(25px,7vw,35px)}.socialgrid{grid-template-columns:1fr}.preview{padding:11px}}
+
+/* Digital Quote Library */
+.library-hero{text-align:center;padding:22px 0 25px}.library-hero h1{font:500 clamp(28px,5vw,44px) "Noto Serif Devanagari";margin:12px 0}.library-hero p{font:14px "Noto Serif Devanagari";color:var(--muted)}
+.library-tools{max-width:850px;margin:0 auto 20px}.library-tools input{font:14px "Noto Serif Devanagari";padding:14px 16px;border-radius:30px;background:#faf7f1}.category-chips{display:flex;gap:8px;overflow-x:auto;padding:13px 1px 5px;scrollbar-width:thin}.category-chips button{white-space:nowrap;background:#f8f4ed;border:1px solid var(--line);color:#6e5b51;border-radius:30px;padding:9px 14px}.category-chips button.active{background:var(--plum);color:#fff;border-color:var(--plum)}
+.library-meta{max-width:1050px;margin:0 auto 12px;display:flex;justify-content:space-between;color:#8b7c70;font-size:11px}.library-grid{max-width:1050px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.library-card{background:#f9f6f0;border:1px solid var(--line);border-radius:13px;padding:22px 20px;min-height:220px;display:flex;flex-direction:column;box-shadow:0 10px 28px #44322508}.library-card blockquote{margin:0;white-space:pre-wrap;font:500 19px/1.9 "Noto Serif Devanagari";color:#3e2935;flex:1}.library-card footer{margin-top:20px;display:flex;justify-content:space-between;gap:8px;align-items:center;color:#9b654e;font:12px "Noto Serif Devanagari"}.library-category{font:10px "DM Sans";letter-spacing:1px;color:#95867a;text-transform:uppercase}.library-actions{display:flex;gap:7px;margin-top:15px}.library-actions button{background:#eee6dc;color:#5a4143;padding:8px 10px}.library-actions button:last-child{background:#4b2c40;color:#fff}.library-empty{grid-column:1/-1;text-align:center;padding:55px 20px;color:#8b8077;font:15px "Noto Serif Devanagari";background:#f9f6f0;border:1px dashed var(--line);border-radius:12px}.library-note{text-align:center;color:#97897e;font:11px "Noto Serif Devanagari";margin:25px 0}
+@media(max-width:850px){.library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.library-grid{grid-template-columns:1fr}.library-card{min-height:185px}.library-meta{font-size:10px}}
+
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><img src="parshavpaath-logo.png" alt="पार्श्वपाठ original logo"><div><div class="brandname">पार्श्वपाठ</div><div class="tag">शब्दों के पीछे छुपे विचार</div></div></div>
+ <nav><button class="active" data-view="studioView">Studio</button><button data-view="libraryView">Read</button><button data-view="reelsView">Reels ↗</button></nav>
+</header>
+
+<main>
+<section id="studioView" class="view active">
+ <section class="hero"><div class="eyebrow">THE PARSHAVPAATH CREATIVE DESK · VERSION 3</div><h1>Words deserve a beautiful page.</h1><p>एक विचार, एक पन्ना — अपने शब्दों को सहेजिए।</p></section>
+ <section class="layout" id="studio">
+  <aside class="panel">
+   <div class="section"><h2>01 — YOUR WORDS</h2><label for="q">Quotation</label><textarea id="q">कुछ शब्द केवल पढ़े नहीं जाते,
+वे भीतर कहीं ठहर जाते हैं।</textarea><div class="hint">Your wording and line breaks are preserved as entered.</div><br><label for="sig">Signature</label><input id="sig" value="— पार्श्वपाठ"></div>
+   <div class="section"><h2>02 — PAPER & MOOD</h2><div class="templates">
+    <button class="tpl active" data-t="classic"><div class="chip" style="background:#f5f0e6"></div>Classic paper</button>
+    <button class="tpl" data-t="cutout"><div class="chip" style="background:#eee6d8"><div style="background:#fffaf0;width:65%;height:14px;margin:6px auto"></div></div>Paper cutting</button>
+    <button class="tpl" data-t="blueink"><div class="chip" style="background:#f4eddf;color:#29476c">अ आ इ</div>Blue ink</button>
+    <button class="tpl" data-t="diary"><div class="chip" style="background:repeating-linear-gradient(#e9dfcc,#e9dfcc 8px,#c8c3b7 9px)"></div>Literary diary</button>
+    <button class="tpl" data-t="midnight"><div class="chip" style="background:#30212b"></div>Midnight</button>
+   </div></div>
+   <div class="section"><h2>03 — COMPOSITION</h2><div class="grid2"><div><label for="size">Text size</label><input id="size" type="range" min="18" max="38" value="30"></div><div><label for="line">Line spacing</label><input id="line" type="range" min="14" max="22" value="18"></div></div><br><label for="words">Highlight words (comma-separated)</label><input id="words" placeholder="उदाहरण: विचार, जीवन"></div>
+   <div class="section"><h2>04 — SAVE & EXPORT</h2><div class="actions"><button class="secondary" id="save">Save project</button><button class="secondary" id="reset">Reset</button><button class="primary" id="download">Download PNG ↓</button></div><div class="actions" style="margin-top:8px"><button class="secondary" id="addCurrentToReels">Add this quote to Reels +</button></div><div class="hint">Instagram portrait · 1080 × 1350 px · 4:5</div></div>
+  </aside>
+  <div class="preview"><div class="previewhead"><b>LIVE PREVIEW</b><span>1080 × 1350 · 4:5</span></div><div class="stage"><div class="poster" id="poster"><div class="topmark">पार्श्वपाठ</div><div class="quote" id="qp">कुछ शब्द केवल पढ़े नहीं जाते,
+वे भीतर कहीं ठहर जाते हैं।</div><div class="signature" id="sp">— पार्श्वपाठ</div><div class="bottom">शब्दों के पीछे छुपे विचार</div></div></div></div>
+ </section>
+ <section class="social" id="socials"><h2>05 — YOUR SOCIAL UNIVERSE</h2><p class="hint">Add your actual profile URLs. Saved links appear below as clickable social links.</p><div class="socialgrid">
+  <div class="socialitem"><label>Instagram</label><input id="instagram" value="https://www.instagram.com/parshv.paath_/"></div><div class="socialitem"><label>YouTube</label><input id="youtube" placeholder="https://youtube.com/@channel"></div><div class="socialitem"><label>Facebook</label><input id="facebook" value="https://www.facebook.com/profile.php?id=61596512274443"></div><div class="socialitem"><label>Threads</label><input id="threads" placeholder="https://threads.net/@handle"></div><div class="socialitem"><label>Pinterest</label><input id="pinterest" value="https://pin.it/7nZO9bZjs"></div><div class="socialitem"><label>X / Twitter</label><input id="xlink" value="https://x.com/Parshvpaath"></div><div class="socialitem"><label>Website / Blog</label><input id="website" placeholder="https://example.com"></div><div class="socialitem"><label>Other link</label><input id="other" placeholder="Paste another profile URL"></div>
+ </div><div class="actions" style="margin-top:12px"><button class="primary" id="saveSocial">Save social links</button><button class="secondary" id="clearSocial">Clear links</button></div><div class="hint" id="status">Links and projects are saved only in this browser on this device.</div><div class="links" id="links"></div></section>
+</section>
+
+<section id="libraryView" class="view">
+ <div class="library-hero"><div class="eyebrow">THE PARSHAVPAATH READING ROOM</div><h1>विचारों की एक छोटी-सी दुनिया।</h1><p>कुछ शब्द पढ़ने के लिए नहीं, अपने भीतर रखने के लिए होते हैं।</p></div>
+ <div class="library-tools"><input id="librarySearch" type="search" placeholder="कोई शब्द, विचार या लेखक खोजें…" aria-label="Quotes खोजें"><div class="category-chips" id="categoryChips"><button class="active" data-category="all">सभी विचार</button></div></div>
+ <div class="library-meta"><span id="libraryCount">Quotes लोड हो रहे हैं…</span><span>Curated by पार्श्वपाठ</span></div>
+ <div class="library-grid" id="libraryGrid" aria-live="polite"><div class="library-empty">विचारों का संग्रह तैयार हो रहा है…</div></div>
+ <p class="library-note">यह संग्रह पार्श्वपाठ द्वारा चुने गए मूल विचारों और चुनिंदा साहित्यिक उद्धरणों का है।</p>
+</section>
+
+<section id="reelsView" class="view">
+ <div class="reels-shell">
+  <div class="reels-intro"><div class="eyebrow">PARSHVPAATH · VERTICAL THOUGHTS</div><h2>Quote Reels</h2><p>एक विचार से दूसरे विचार तक — बस ऊपर स्वाइप कीजिए।</p></div>
+  <div class="reel-frame" id="reelFrame" aria-label="Vertical quote viewer">
+   <div class="reel-card paper" id="reelCard"><div class="reel-brand">पार्श्वपाठ</div><div class="reel-quote" id="reelQuote">अपने विचार यहाँ जोड़ें।</div><div class="reel-sign" id="reelSign">— पार्श्वपाठ</div><div class="reel-footer">शब्दों के पीछे छुपे विचार</div></div>
+   <div class="reel-actions"><button id="likeReel" title="Like">♡</button><button id="shareReel" title="Share">↗</button><button id="downloadReel" title="Download">↓</button></div>
+   <div class="reel-count" id="reelCount">0 / 0</div><div class="reel-hint">↑ SWIPE UP FOR NEXT</div>
+  </div>
+  <div class="reel-controls" style="margin:12px 0 16px"><button class="secondary" id="prevReel">↑ Previous</button><button class="primary" id="nextReel">Next Quote ↓</button></div>
+  <div class="reel-editor">
+   <h3>अपने Quotes जोड़ें</h3>
+   <label for="newQuote">नया Quote</label><textarea id="newQuote" placeholder="अपना सुविचार यहाँ लिखें..."></textarea>
+   <label for="newSignature" style="margin-top:10px">Signature</label><input id="newSignature" value="— पार्श्वपाठ">
+   <div class="actions" style="margin-top:10px"><button class="primary" id="addQuote">Add Quote to Reels +</button><button class="secondary" id="clearQuotes">Clear all</button></div>
+   <div class="small-note">Quotes और likes इसी browser में सेव होंगे। Reels Mode में वही quotes दिखेंगे जिन्हें तुम यहाँ जोड़ोगे या Studio से भेजोगे।</div>
+   <div class="quote-list" id="quoteList"></div>
+  </div>
+ </div>
+</section>
+</main>
+<div class="foot">PARSHAVPAATH STUDIO · A LITTLE SPACE FOR THOUGHT</div>
+
+<script>
+const $=id=>document.getElementById(id), q=$('q'), sig=$('sig'), poster=$('poster');
+let template='classic', reels=[], current=0, liked=new Set();
+const reelThemes=['paper','', 'blue','earth','ink'];
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function update(){
+ let h=$('words').value.split(',').map(x=>x.trim()).filter(Boolean),t=esc(q.value);
+ h.forEach(w=>{let v=esc(w);if(v)t=t.split(v).join('<span class="highlight">'+v+'</span>')});
+ $('qp').innerHTML=t;$('sp').textContent=sig.value;$('qp').style.fontSize=$('size').value+'px';$('qp').style.lineHeight=$('line').value/10;
+}
+[q,sig,$('words'),$('size'),$('line')].forEach(e=>e.addEventListener('input',update));
+document.querySelectorAll('.tpl').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tpl').forEach(x=>x.classList.remove('active'));b.classList.add('active');template=b.dataset.t;poster.className='poster '+(template==='classic'?'':template)});
+function project(){return{quote:q.value,signature:sig.value,template,size:$('size').value,line:$('line').value,highlights:$('words').value}}
+$('save').onclick=()=>{localStorage.setItem('pp_v3_project',JSON.stringify(project()));$('status').textContent='Project saved in this browser.'};
+$('reset').onclick=()=>{q.value='';sig.value='— पार्श्वपाठ';$('words').value='';$('size').value=30;$('line').value=18;document.querySelector('[data-t="classic"]').click();update()};
+function wrap(ctx,text,max){let a=[];text.split('\n').forEach(line=>{if(!line){a.push('');return}let cur='';line.split(/\s+/).forEach(w=>{let test=cur?cur+' '+w:w;if(ctx.measureText(test).width>max&&cur){a.push(cur);cur=w}else cur=test});a.push(cur)});return a}
+async function makePosterDownload(text,signature,ratio='portrait'){
+ await document.fonts.ready;
+ let c=document.createElement('canvas');c.width=1080;c.height=ratio==='reel'?1920:1350;
+ let x=c.getContext('2d'),h=c.height,bg={classic:'#f5f0e6',cutout:'#eee6d8',blueink:'#f4eddf',diary:'#e9dfcc',midnight:'#30212b'}[template],ink=template==='midnight'?'#f4eadc':template==='blueink'?'#29476c':'#38202e';
+ x.fillStyle=bg;x.fillRect(0,0,1080,h);
+ for(let i=0;i<Math.floor(38000*h/1350);i++){x.fillStyle='rgba(78,55,38,'+(Math.random()*.035)+')';x.fillRect(Math.random()*1080,Math.random()*h,1+Math.random()*2,1+Math.random()*2)}
+ x.strokeStyle=template==='midnight'?'#b77b5c77':'#9d806b55';x.lineWidth=2;x.strokeRect(38,38,1004,h-76);
+ x.textAlign='center';x.fillStyle=template==='midnight'?'#d19a78':'#94664f';x.font='500 31px "Noto Serif Devanagari"';x.fillText('पार्श्वपाठ',540,ratio==='reel'?175:165);
+ let family=template==='blueink'?'Kalam':'Noto Serif Devanagari',size=ratio==='reel'?68:Number($('size').value)*1.9,lh=size*(ratio==='reel'?1.75:Number($('line').value)/10);
+ x.font='500 '+size+'px "'+family+'"';let lines=wrap(x,text,830),total=lines.length*lh,center=h*.5;
+ if(template==='cutout'){x.save();x.translate(540,center);x.rotate(-.012);x.fillStyle='#fffaf0';x.shadowColor='#3c2d2038';x.shadowBlur=24;x.shadowOffsetX=10;x.shadowOffsetY=13;x.fillRect(-460,-total/2-90,920,total+180);x.restore()}
+ if(template==='diary'){x.strokeStyle='#8d9eaa55';for(let y=center-450;y<center+450;y+=62){x.beginPath();x.moveTo(105,y);x.lineTo(975,y);x.stroke()}}
+ x.fillStyle=ink;x.font='500 '+size+'px "'+family+'"';let y=center-total/2+size*.35;lines.forEach(l=>{x.fillText(l,540,y);y+=lh});
+ x.fillStyle=template==='midnight'?'#d19a78':template==='blueink'?'#29476c':'#9c5a40';x.font='500 34px "'+family+'"';x.fillText(signature,540,Math.min(h-230,y+65));
+ x.fillStyle=template==='midnight'?'#c1a997':'#9b8b7b';x.font='18px "DM Sans"';x.fillText('शब्दों के पीछे छुपे विचार',540,h-125);
+ let a=document.createElement('a');a.download=ratio==='reel'?'parshvpaath-reel-1080x1920.png':'parshvpaath-quote-1080x1350.png';a.href=c.toDataURL('image/png');a.click();
+}
+$('download').onclick=()=>makePosterDownload(q.value,sig.value,'portrait');
+function saveReels(){localStorage.setItem('pp_v3_reels',JSON.stringify(reels))}
+function renderReels(){
+ const card=$('reelCard'),item=reels[current];
+ if(!item){$('reelQuote').textContent='अभी कोई Quote नहीं है। नीचे अपना पहला विचार जोड़ें।';$('reelSign').textContent='— पार्श्वपाठ';$('reelCount').textContent='0 / 0';$('likeReel').textContent='♡';renderQuoteList();return}
+ card.className='reel-card '+(item.theme||reelThemes[current%reelThemes.length]);
+ $('reelQuote').textContent=item.text;$('reelSign').textContent=item.signature||'— पार्श्वपाठ';
+ $('reelCount').textContent=(current+1)+' / '+reels.length;$('likeReel').textContent=liked.has(item.id)?'♥':'♡';renderQuoteList();
+}
+function addReel(text,signature){let clean=text.trim();if(!clean)return;reels.push({id:Date.now()+Math.random(),text:clean,signature:signature||'— पार्श्वपाठ',theme:reelThemes[reels.length%reelThemes.length]});current=reels.length-1;saveReels();renderReels()}
+function renderQuoteList(){
+ let out='';reels.forEach((r,i)=>{out+='<div class="quote-row"><span>'+(i+1)+'. '+esc(r.text)+'</span><button data-open="'+i+'">View</button><button data-delete="'+i+'">Delete</button></div>'});
+ $('quoteList').innerHTML=out;
+ $('quoteList').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{current=Number(b.dataset.open);renderReels();$('reelFrame').scrollIntoView({behavior:'smooth',block:'center'})});
+ $('quoteList').querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{reels.splice(Number(b.dataset.delete),1);current=Math.max(0,Math.min(current,reels.length-1));saveReels();renderReels()});
+}
+$('addQuote').onclick=()=>{addReel($('newQuote').value,$('newSignature').value);$('newQuote').value=''};
+$('addCurrentToReels').onclick=()=>{addReel(q.value,sig.value);document.querySelector('[data-view="reelsView"]').click();$('status').textContent='Quote added to Reels Mode.'};
+$('clearQuotes').onclick=()=>{if(confirm('क्या सभी Quotes हटाने हैं?')){reels=[];current=0;saveReels();renderReels()}};
+function next(){if(!reels.length)return;current=(current+1)%reels.length;renderReels()}
+function prev(){if(!reels.length)return;current=(current-1+reels.length)%reels.length;renderReels()}
+$('nextReel').onclick=next;$('prevReel').onclick=prev;
+$('likeReel').onclick=()=>{if(!reels[current])return;let id=reels[current].id;liked.has(id)?liked.delete(id):liked.add(id);localStorage.setItem('pp_v3_likes',JSON.stringify([...liked]));renderReels()};
+$('downloadReel').onclick=()=>{if(reels[current])makePosterDownload(reels[current].text,reels[current].signature,'reel')};
+$('shareReel').onclick=async()=>{if(!reels[current])return;let data={title:'पार्श्वपाठ',text:reels[current].text+'\\n'+(reels[current].signature||'— पार्श्वपाठ'),url:location.href};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{await navigator.clipboard?.writeText(data.text);alert('Quote copied. अब इसे share कर सकते हैं।')}};
+let touchY=0;
+$('reelFrame').addEventListener('touchstart',e=>{touchY=e.changedTouches[0].screenY},{passive:true});
+$('reelFrame').addEventListener('touchend',e=>{let dy=touchY-e.changedTouches[0].screenY;if(Math.abs(dy)>45){dy>0?next():prev()}},{passive:true});
+$('reelFrame').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>20){e.deltaY>0?next():prev()}},{passive:true});
+document.addEventListener('keydown',e=>{if(!$('reelsView').classList.contains('active'))return;if(e.key==='ArrowUp')prev();if(e.key==='ArrowDown')next()});
+
+// Public, read-only quote library. The owner publishes entries by updating quotes.json in the GitHub repository.
+let libraryQuotes=[],activeCategory='all';
+function renderLibrary(){
+ const term=($('librarySearch').value||'').trim().toLocaleLowerCase('hi');
+ const filtered=libraryQuotes.filter(item=>(activeCategory==='all'||item.category===activeCategory)&&[item.text,item.author,item.category].join(' ').toLocaleLowerCase('hi').includes(term));
+ $('libraryCount').textContent=filtered.length+' / '+libraryQuotes.length+' विचार';
+ if(!filtered.length){$('libraryGrid').innerHTML='<div class="library-empty">इस खोज में कोई विचार नहीं मिला।</div>';return}
+ $('libraryGrid').innerHTML=filtered.map(item=>'<article class="library-card"><div class="library-category">'+esc(item.category||'विचार')+'</div><blockquote>'+esc(item.text)+'</blockquote><footer><span>— '+esc(item.author||'अज्ञात')+'</span><span>'+(item.kind==='original'?'मूल विचार':'चयनित')+'</span></footer><div class="library-actions"><button data-copy="'+esc(item.id)+'">कॉपी करें</button><button data-reel="'+esc(item.id)+'">Reels में जोड़ें ↗</button></div></article>').join('');
+ $('libraryGrid').querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{let item=libraryQuotes.find(x=>x.id===b.dataset.copy);if(!item)return;try{await navigator.clipboard.writeText(item.text+'\n— '+item.author);b.textContent='कॉपी हो गया ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}});
+ $('libraryGrid').querySelectorAll('[data-reel]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>x.id===b.dataset.reel);if(!item)return;addReel(item.text,'— '+item.author);document.querySelector('[data-view="reelsView"]').click()});
+}
+function renderCategories(){let cats=[...new Set(libraryQuotes.map(x=>x.category).filter(Boolean))];$('categoryChips').innerHTML='<button class="'+(activeCategory==='all'?'active':'')+'" data-category="all">सभी विचार</button>'+cats.map(c=>'<button class="'+(activeCategory===c?'active':'')+'" data-category="'+esc(c)+'">'+esc(c)+'</button>').join('');$('categoryChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;renderCategories();renderLibrary()})}
+$('librarySearch').addEventListener('input',renderLibrary);
+fetch('./quotes.json').then(r=>{if(!r.ok)throw new Error('quotes.json not found');return r.json()}).then(data=>{libraryQuotes=Array.isArray(data)?data:[];renderCategories();renderLibrary()}).catch(()=>{$('libraryCount').textContent='संग्रह उपलब्ध नहीं';$('libraryGrid').innerHTML='<div class="library-empty">Quote संग्रह लोड नहीं हो पाया। GitHub repository में quotes.json फ़ाइल मौजूद होनी चाहिए।</div>'});
+
+document.querySelectorAll('nav button[data-view]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active');if(b.dataset.view==='reelsView')renderReels();window.scrollTo({top:0,behavior:'smooth'})});
+const ids=['instagram','youtube','facebook','threads','pinterest','xlink','website','other'],names={instagram:'Instagram',youtube:'YouTube',facebook:'Facebook',threads:'Threads',pinterest:'Pinterest',xlink:'X / Twitter',website:'Website',other:'More'};
+function social(){let d={};ids.forEach(i=>d[i]=$(i).value.trim());return d}
+function render(){let out='';Object.entries(social()).forEach(([k,v])=>{if(v&&/^https?:\/\//i.test(v))out+='<a href="'+esc(v)+'" target="_blank" rel="noopener">'+names[k]+' ↗</a>'});$('links').innerHTML=out}
+$('saveSocial').onclick=()=>{localStorage.setItem('pp_v2_social',JSON.stringify(social()));render();$('status').textContent='Social links saved in this browser.'};
+$('clearSocial').onclick=()=>{ids.forEach(i=>$(i).value='');localStorage.removeItem('pp_v2_social');render();$('status').textContent='Social links cleared.'};
+try{let d=JSON.parse(localStorage.getItem('pp_v2_social')||'{}');ids.forEach(i=>{if(d[i])$(i).value=d[i]})}catch(e){}render();
+try{let p=JSON.parse(localStorage.getItem('pp_v2_project')||'null');if(p){q.value=p.quote??q.value;sig.value=p.signature??sig.value;$('size').value=p.size??30;$('line').value=p.line??18;$('words').value=p.highlights??'';if(p.template)document.querySelector('[data-t="'+p.template+'"]')?.click()}}catch(e){}
+try{reels=JSON.parse(localStorage.getItem('pp_v3_reels')||'[]');liked=new Set(JSON.parse(localStorage.getItem('pp_v3_likes')||'[]'))}catch(e){reels=[];liked=new Set()}
+update();renderReels();
+</script>
+</body>
+</html>

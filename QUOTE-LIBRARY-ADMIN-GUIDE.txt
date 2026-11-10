@@ -1,0 +1,24 @@
+PARSHAVPAATH — QUOTE LIBRARY ADMIN GUIDE
+
+FILES
+- index.html: the website, including Studio, public Quote Library, and Quote Reels.
+- quotes.json: the content shown in the public Quote Library.
+
+PUBLISHING (ADMIN ONLY)
+1. Keep index.html, quotes.json, and parshavpaath-logo.png in the same GitHub Pages repository root.
+2. Only the repository owner / trusted collaborators with write access should edit quotes.json.
+3. Visitors can read, search, filter, copy, and send a quote to Reels locally. They cannot submit or publish a quote into the public library.
+4. To add a quote, edit quotes.json and add an object before the final ] using this format:
+
+  {
+    "id": "unique-id-007",
+    "text": "यहाँ अपना उद्धरण लिखें।",
+    "author": "लेखक का नाम",
+    "category": "जीवन-दर्शन",
+    "kind": "original"
+  }
+
+Use kind "original" for Parshvpaath's own writing and "classic" for selected authors. Keep IDs unique. Separate objects with commas. Valid JSON is required.
+
+IMPORTANT
+This is a static GitHub Pages site. Admin-only publishing is enforced by GitHub repository write permissions, not by a password field in the public website. A secure in-site admin dashboard with login and cloud storage would require a backend/auth service.
