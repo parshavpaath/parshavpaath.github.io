@@ -3,17 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="google-site-verification" content="Q7YyqpjYLySwcaJkNiUt1uYR-5xvQGRFbzL9koHY4zA">
-<title>पार्श्वपाठ | हिंदी विचार, उद्धरण और साहित्यिक संग्रह</title>
-<meta name="description" content="पार्श्वपाठ पर पढ़ें जीवन-दर्शन, साहित्य, मनोविज्ञान और गहरे विचारों से जुड़े चुनिंदा हिंदी उद्धरण। विचारों की एक छोटी-सी दुनिया।">
-<meta name="robots" content="index, follow">
-<meta property="og:type" content="website">
-<meta property="og:title" content="पार्श्वपाठ | विचारों की एक छोटी-सी दुनिया">
-<meta property="og:description" content="जीवन-दर्शन, साहित्य, मनोविज्ञान और गहरे विचारों से जुड़े चुनिंदा हिंदी उद्धरण।">
-<meta property="og:url" content="https://parshavpaath.github.io/">
-<meta property="og:site_name" content="पार्श्वपाठ">
-<meta property="og:locale" content="hi_IN">
-<link rel="canonical" href="https://parshavpaath.github.io/">
+<title>पार्श्वपाठ — विचारों की एक छोटी-सी दुनिया</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Playfair+Display:wght@500;600&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -103,64 +93,12 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
  </div>
 </section>
 </main>
- 
-<style>
-.social-connect {
-  text-align: center;
-  padding: 35px 18px;
-  margin: 25px auto;
-  border-top: 1px solid #e8dfd4;
-}
-.social-connect h2 {
-  font-family: "Noto Serif Devanagari", serif;
-  color: #38202e;
-  font-size: 23px;
-  margin-bottom: 8px;
-}
-.social-connect p {
-  color: #796b61;
-  font-size: 13px;
-  margin-bottom: 22px;
-}
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-.social-links a {
-  text-decoration: none;
-  color: #38202e;
-  background: #f9f6f0;
-  border: 1px solid #e5d9cc;
-  border-radius: 30px;
-  padding: 11px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  transition: 0.2s ease;
-}
-.social-links a:hover {
-  background: #38202e;
-  color: #fff;
-}
-</style>
-
-<section class="social-connect">
-  <h2>हमसे जुड़ें</h2>
-  <p>विचारों की इस छोटी-सी दुनिया से जुड़े रहें।</p>
-
-  <div class="social-links">
-    <a href="https://www.instagram.com/parshv.paath_/" target="_blank" rel="noopener noreferrer">Instagram</a>
-
-    <a href="https://www.facebook.com/profile.php?id=61596512274443" target="_blank" rel="noopener noreferrer">Facebook</a>
-
-    <a href="https://pin.it/7nZO9bZjs" target="_blank" rel="noopener noreferrer">Pinterest</a>
-
-    <a href="https://x.com/Parshvpaath" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-  </div>
-</section>
 <div class="foot">PARSHAVPAATH · शब्दों के पीछे छुपे विचार</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL="https://rwsosvgpbpfizzkczgjx.supabase.co";
+const SUPABASE_KEY="sb_publishable_unaQN7Yu07W2R4GAK0bx2w_gf-Id-94";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let libraryQuotes=[],activeCategory='all',current=0;
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -184,7 +122,7 @@ $('reelFrame').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>20){e.deltaY>0
 document.addEventListener('keydown',e=>{if(!$('reelsView').classList.contains('active'))return;if(e.key==='ArrowUp')prev();if(e.key==='ArrowDown')next()});
 $('librarySearch').addEventListener('input',renderLibrary);
 document.querySelectorAll('nav button[data-view]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})});
-fetch('./quotes.json').then(r=>{if(!r.ok)throw new Error('quotes.json not found');return r.json()}).then(data=>{libraryQuotes=Array.isArray(data)?data:[];renderCategories();renderLibrary();renderReel()}).catch(()=>{$('libraryCount').textContent='संग्रह उपलब्ध नहीं';$('libraryGrid').innerHTML='<div class="library-empty">Quote संग्रह लोड नहीं हो पाया। GitHub repository में quotes.json फाइल होनी चाहिए।</div>';renderReel()});
+sb.from('quotes').select('id,text,author,category,kind').eq('published',true).order('created_at',{ascending:false}).then(({data,error})=>{if(error)throw error;libraryQuotes=data||[];renderCategories();renderLibrary();renderReel()}).catch(err=>{$('libraryCount').textContent='संग्रह उपलब्ध नहीं';$('libraryGrid').innerHTML='<div class="library-empty">Quote संग्रह लोड नहीं हो पाया। कृपया थोड़ी देर बाद पुनः प्रयास करें।</div>';renderReel();console.error(err)});
 </script>
 </body>
 </html>
