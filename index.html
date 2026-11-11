@@ -194,7 +194,7 @@ $('readerClose').onclick=closeReader;$('readerOverlay').addEventListener('click'
 $('readerCopy').onclick=async()=>{if(!readerItem)return;try{await navigator.clipboard.writeText(readerItem.text+'\n— '+(readerItem.author||'अज्ञात'));$('readerCopy').textContent='कॉपी हो गया ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}};
 $('readerSave').onclick=()=>{if(readerItem)toggleBookmark(readerItem.id)};
 $('readerWhatsApp').onclick=()=>{if(readerItem)shareWhatsApp(readerItem)};
-$('readerInstagram').onclick=()=>{if(readerItem)copyForInstagram(readerItem,$('readerInstagram'))};
+$('readerInstagram').onclick=()=>{if(readerItem)shareInstagram(readerItem,$('readerInstagram'))};
 $('readerShare').onclick=()=>{if(readerItem)shareNative(readerItem)};
 function renderLibrary(){
  const term=($('librarySearch').value||'').trim().toLocaleLowerCase('hi');
