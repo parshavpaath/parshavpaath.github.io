@@ -3,48 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>पार्श्वपाठ — हिंदी विचार, दर्शन और साहित्यिक उद्धरण</title>
-<meta name="description" content="पार्श्वपाठ पर पढ़ें जीवन, रिश्तों, मनोविज्ञान और दर्शन से जुड़े चुनिंदा हिंदी विचार और साहित्यिक उद्धरण। अपने पसंदीदा विचार सहेजें और साझा करें।">
-<meta name="keywords" content="हिंदी विचार, हिंदी उद्धरण, जीवन दर्शन, प्रेरक विचार, साहित्यिक उद्धरण, हिंदी कोट्स, पार्श्वपाठ">
-<meta name="author" content="पार्श्वपाठ">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#f4efe6">
-<link rel="canonical" href="https://parshavpaath.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="hi_IN">
-<meta property="og:site_name" content="पार्श्वपाठ">
-<meta property="og:title" content="पार्श्वपाठ — हिंदी विचार, दर्शन और साहित्यिक उद्धरण">
-<meta property="og:description" content="कुछ शब्द पढ़ने के लिए नहीं, अपने भीतर रखने के लिए होते हैं। पढ़ें, सहेजें और साझा करें।">
-<meta property="og:url" content="https://parshavpaath.github.io/">
-<meta property="og:image" content="https://parshavpaath.github.io/parshavpaath-logo.png">
-<meta property="og:image:alt" content="पार्श्वपाठ — शब्दों के पीछे छुपे विचार">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="पार्श्वपाठ — हिंदी विचार और दर्शन">
-<meta name="twitter:description" content="जीवन, रिश्तों और दर्शन से जुड़े चुनिंदा हिंदी विचार।">
-<meta name="twitter:image" content="https://parshavpaath.github.io/parshavpaath-logo.png">
-<link rel="icon" type="image/png" href="parshavpaath-logo.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "पार्श्वपाठ",
-  "alternateName": "Parshavpaath",
-  "url": "https://parshavpaath.github.io/",
-  "inLanguage": "hi-IN",
-  "description": "जीवन, रिश्तों, मनोविज्ञान और दर्शन से जुड़े हिंदी विचारों और साहित्यिक उद्धरणों का संग्रह।",
-  "publisher": {
-    "@type": "Organization",
-    "name": "पार्श्वपाठ",
-    "url": "https://parshavpaath.github.io/",
-    "sameAs": [
-      "https://www.instagram.com/parshv.paath_/",
-      "https://www.facebook.com/profile.php?id=61596512274443",
-      "https://pin.it/7nZO9bZjs",
-      "https://x.com/Parshavpaath"
-    ]
-  }
-}
-</script>
+<title>पार्श्वपाठ — विचारों की एक छोटी-सी दुनिया</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Playfair+Display:wght@500;600&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -118,10 +77,6 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
 .library-actions button{background:#eee6dc;color:#5a4143;padding:9px 11px;flex:1}
 .library-actions button.save-btn{background:#f2e7dc;color:#6b3d45}
 .library-actions button.save-btn.saved{background:#4b2c40;color:#fff}
-.library-actions button.share-wa,.reader-tools button.share-wa{background:#e8f1e8;color:#245b36}
-.library-actions button.share-more,.reader-tools button.share-more{background:#e9e2ec;color:#4b2c40}
-.library-actions button.share-ig,.reader-tools button.share-ig{background:#f5e7e9;color:#783e55}
-.share-note{font-size:10px;color:#8b8077;margin-top:8px;line-height:1.5}
 .reader-overlay{position:fixed;inset:0;background:#201820b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
 .reader-overlay.open{display:flex}
 .reader-sheet{width:min(100%,650px);max-height:90vh;overflow:auto;background:#f8f3e9;border:1px solid #d9cbbb;border-radius:16px;padding:clamp(24px,6vw,48px);box-shadow:0 24px 80px #0005;position:relative}
@@ -168,7 +123,7 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
  <a href="https://x.com/Parshavpaath" target="_blank" rel="noopener noreferrer">X</a>
 </div>
 <div class="foot">PARSHAVPAATH · शब्दों के पीछे छुपे विचार</div>
-<div class="reader-overlay" id="readerOverlay" role="dialog" aria-modal="true" aria-label="Quote reading view"><article class="reader-sheet"><button class="reader-close" id="readerClose" aria-label="बंद करें">×</button><div class="reader-category" id="readerCategory"></div><div class="reader-text" id="readerText"></div><div class="reader-author" id="readerAuthor"></div><div class="reader-tools"><button id="readerCopy">कॉपी करें</button><button id="readerSave">♡ संग्रह में रखें</button><button class="share-wa" id="readerWhatsApp">WhatsApp</button><button class="share-ig" id="readerInstagram">Instagram के लिए कॉपी</button><button class="share-more" id="readerShare">अन्य जगह शेयर करें</button></div><p class="share-note">Instagram पर पोस्ट/स्टोरी बनाते समय कॉपी किया हुआ टेक्स्ट Paste करें।</p></article></div>
+<div class="reader-overlay" id="readerOverlay" role="dialog" aria-modal="true" aria-label="Quote reading view"><article class="reader-sheet"><button class="reader-close" id="readerClose" aria-label="बंद करें">×</button><div class="reader-category" id="readerCategory"></div><div class="reader-text" id="readerText"></div><div class="reader-author" id="readerAuthor"></div><div class="reader-tools"><button id="readerCopy">कॉपी करें</button><button id="readerSave">♡ संग्रह में रखें</button></div></article></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://rwsosvgpbpfizzkczgjx.supabase.co";
@@ -179,12 +134,6 @@ let libraryQuotes=[],activeCategory='all',current=0,showSavedOnly=false,readerIt
 let savedQuoteIds=new Set();
 try{savedQuoteIds=new Set(JSON.parse(localStorage.getItem('pp_saved_quotes')||'[]').map(String))}catch(e){savedQuoteIds=new Set()}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function quoteUrl(item){return location.origin+location.pathname+'#quote='+encodeURIComponent(String(item.id))}
-function quoteShareText(item){return (item.text||'')+'\n— '+(item.author||'पार्श्वपाठ')+'\n\nपार्श्वपाठ पर पढ़ें: '+quoteUrl(item)}
-async function copyText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}const box=document.createElement('textarea');box.value=text;box.style.position='fixed';box.style.opacity='0';document.body.appendChild(box);box.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}box.remove();if(!ok)throw new Error('copy failed');return true}
-function shareWhatsApp(item){const url='https://wa.me/?text='+encodeURIComponent(quoteShareText(item));window.open(url,'_blank','noopener,noreferrer')}
-async function shareNative(item){const data={title:'पार्श्वपाठ — एक विचार',text:quoteShareText(item),url:quoteUrl(item)};if(navigator.share){try{await navigator.share(data)}catch(e){if(e.name!=='AbortError')console.error(e)}}else{shareWhatsApp(item)}}
-async function copyForInstagram(item,button){try{await copyText(quoteShareText(item));if(button){const old=button.textContent;button.textContent='कॉपी हो गया ✓';setTimeout(()=>button.textContent=old,1800)}else alert('Quote कॉपी हो गया। अब Instagram पर Caption या Story में Paste करें।')}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}}
 function saveBookmarks(){localStorage.setItem('pp_saved_quotes',JSON.stringify([...savedQuoteIds]));}
 function toggleBookmark(id){id=String(id);savedQuoteIds.has(id)?savedQuoteIds.delete(id):savedQuoteIds.add(id);saveBookmarks();renderLibrary();if(readerItem&&String(readerItem.id)===id)updateReaderSaveButton();}
 function updateReaderSaveButton(){if(!readerItem)return;let saved=savedQuoteIds.has(String(readerItem.id));$('readerSave').textContent=saved?'♥ संग्रह में सेव है':'♡ संग्रह में रखें'}
@@ -193,9 +142,6 @@ function closeReader(){$('readerOverlay').classList.remove('open');document.body
 $('readerClose').onclick=closeReader;$('readerOverlay').addEventListener('click',e=>{if(e.target===$('readerOverlay'))closeReader()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader()});
 $('readerCopy').onclick=async()=>{if(!readerItem)return;try{await navigator.clipboard.writeText(readerItem.text+'\n— '+(readerItem.author||'अज्ञात'));$('readerCopy').textContent='कॉपी हो गया ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}};
 $('readerSave').onclick=()=>{if(readerItem)toggleBookmark(readerItem.id)};
-$('readerWhatsApp').onclick=()=>{if(readerItem)shareWhatsApp(readerItem)};
-$('readerInstagram').onclick=()=>{if(readerItem)shareInstagram(readerItem,$('readerInstagram'))};
-$('readerShare').onclick=()=>{if(readerItem)shareNative(readerItem)};
 function renderLibrary(){
  const term=($('librarySearch').value||'').trim().toLocaleLowerCase('hi');
  let filtered=libraryQuotes.filter(item=>(activeCategory==='all'||item.category===activeCategory)&&(!showSavedOnly||savedQuoteIds.has(String(item.id)))&&[item.text,item.author,item.category].join(' ').toLocaleLowerCase('hi').includes(term));
@@ -203,13 +149,10 @@ function renderLibrary(){
  if(sort==='oldest')filtered.reverse();else if(sort==='az')filtered.sort((a,b)=>String(a.author||'').localeCompare(String(b.author||''),'hi'));
  $('libraryCount').textContent=filtered.length+' / '+libraryQuotes.length+' विचार'+(showSavedOnly?' · मेरे संग्रह':'');
  if(!filtered.length){$('libraryGrid').innerHTML='<div class="library-empty">'+(showSavedOnly?'अभी आपने कोई विचार सेव नहीं किया है। किसी Quote पर ♡ दबाकर उसे यहाँ रखें।':'इस खोज में कोई विचार नहीं मिला।')+'</div>';return}
- $('libraryGrid').innerHTML=filtered.map(item=>{let id=esc(item.id),saved=savedQuoteIds.has(String(item.id));return '<article class="library-card"><div class="library-category">'+esc(item.category||'विचार')+'</div><blockquote>'+esc(item.text)+'</blockquote><footer><span>— '+esc(item.author||'अज्ञात')+'</span><span>'+(item.kind==='original'?'मूल विचार':'चयनित')+'</span></footer><div class="library-actions"><button data-read="'+id+'">पूरा पढ़ें</button><button class="save-btn '+(saved?'saved':'')+'" data-save="'+id+'">'+(saved?'♥ सेव है':'♡ सेव करें')+'</button><button data-copy="'+id+'">कॉपी</button><button class="share-wa" data-wa="'+id+'">WhatsApp</button><button class="share-ig" data-ig="'+id+'">Instagram</button><button class="share-more" data-share="'+id+'">Share ↗</button></div></article>'}).join('');
+ $('libraryGrid').innerHTML=filtered.map(item=>{let id=esc(item.id),saved=savedQuoteIds.has(String(item.id));return '<article class="library-card"><div class="library-category">'+esc(item.category||'विचार')+'</div><blockquote>'+esc(item.text)+'</blockquote><footer><span>— '+esc(item.author||'अज्ञात')+'</span><span>'+(item.kind==='original'?'मूल विचार':'चयनित')+'</span></footer><div class="library-actions"><button data-read="'+id+'">पूरा पढ़ें</button><button class="save-btn '+(saved?'saved':'')+'" data-save="'+id+'">'+(saved?'♥ सेव है':'♡ सेव करें')+'</button><button data-copy="'+id+'">कॉपी</button></div></article>'}).join('');
  $('libraryGrid').querySelectorAll('[data-read]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.read);if(item)openReader(item)});
  $('libraryGrid').querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>toggleBookmark(b.dataset.save));
- $('libraryGrid').querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.copy);if(!item)return;try{await copyText(item.text+'\n— '+(item.author||'अज्ञात'));b.textContent='कॉपी ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}});
- $('libraryGrid').querySelectorAll('[data-wa]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.wa);if(item)shareWhatsApp(item)});
- $('libraryGrid').querySelectorAll('[data-ig]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.ig);if(item)copyForInstagram(item,b)});
- $('libraryGrid').querySelectorAll('[data-share]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.share);if(item)shareNative(item)});
+ $('libraryGrid').querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.copy);if(!item)return;try{await navigator.clipboard.writeText(item.text+'\n— '+(item.author||'अज्ञात'));b.textContent='कॉपी ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}});
 }
 $('showAll').onclick=()=>{showSavedOnly=false;$('showAll').classList.add('active');$('showSaved').classList.remove('active');renderLibrary()};
 $('showSaved').onclick=()=>{showSavedOnly=true;$('showSaved').classList.add('active');$('showAll').classList.remove('active');renderLibrary()};
@@ -220,13 +163,13 @@ function renderReel(){let item=libraryQuotes[current];if(!item){$('reelQuote').t
 function next(){if(!libraryQuotes.length)return;current=(current+1)%libraryQuotes.length;renderReel()}
 function prev(){if(!libraryQuotes.length)return;current=(current-1+libraryQuotes.length)%libraryQuotes.length;renderReel()}
 $('nextReel').onclick=next;$('prevReel').onclick=prev;
-$('shareReel').onclick=()=>{let item=libraryQuotes[current];if(item)shareNative(item)};
+$('shareReel').onclick=async()=>{let item=libraryQuotes[current];if(!item)return;let data={title:'पार्श्वपाठ',text:item.text+'\\n— '+(item.author||'पार्श्वपाठ'),url:location.href};if(navigator.share){try{await navigator.share(data)}catch(e){}}else{try{await navigator.clipboard.writeText(data.text);alert('Quote copied.')}catch(e){}}};
 let touchY=0;$('reelFrame').addEventListener('touchstart',e=>{touchY=e.changedTouches[0].screenY},{passive:true});$('reelFrame').addEventListener('touchend',e=>{let dy=touchY-e.changedTouches[0].screenY;if(Math.abs(dy)>45){dy>0?next():prev()}},{passive:true});
 $('reelFrame').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>20){e.deltaY>0?next():prev()}},{passive:true});
 document.addEventListener('keydown',e=>{if(!$('reelsView').classList.contains('active'))return;if(e.key==='ArrowUp')prev();if(e.key==='ArrowDown')next()});
 $('librarySearch').addEventListener('input',renderLibrary);
 document.querySelectorAll('nav button[data-view]').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})});
-sb.from('quotes').select('id,text,author,category,kind').eq('published',true).order('created_at',{ascending:false}).then(({data,error})=>{if(error)throw error;libraryQuotes=data||[];renderCategories();renderLibrary();renderReel();const match=location.hash.match(/^#quote=(.+)$/);if(match){const target=decodeURIComponent(match[1]);const item=libraryQuotes.find(q=>String(q.id)===target);if(item)openReader(item)}}).catch(err=>{$('libraryCount').textContent='संग्रह उपलब्ध नहीं';$('libraryGrid').innerHTML='<div class="library-empty">Quote संग्रह लोड नहीं हो पाया। कृपया थोड़ी देर बाद पुनः प्रयास करें।</div>';renderReel();console.error(err)});
+sb.from('quotes').select('id,text,author,category,kind').eq('published',true).order('created_at',{ascending:false}).then(({data,error})=>{if(error)throw error;libraryQuotes=data||[];renderCategories();renderLibrary();renderReel()}).catch(err=>{$('libraryCount').textContent='संग्रह उपलब्ध नहीं';$('libraryGrid').innerHTML='<div class="library-empty">Quote संग्रह लोड नहीं हो पाया। कृपया थोड़ी देर बाद पुनः प्रयास करें।</div>';renderReel();console.error(err)});
 </script>
 </body>
 </html>
