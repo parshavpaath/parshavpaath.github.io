@@ -66,6 +66,28 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
 .public-reel-actions{position:absolute;right:13px;bottom:17%;display:flex;flex-direction:column;gap:12px;z-index:4}
 .public-reel-actions button{width:42px;height:42px;border-radius:50%;padding:0;background:#ffffffdf;color:#352632;font-size:17px}
 @media(max-width:600px){.public-reel-frame{height:calc(100dvh - 190px);min-height:510px;max-height:780px;border-radius:12px}.public-reel-quote{font-size:clamp(25px,7vw,35px)}}
+
+/* Reader upgrades: saved quotes, sorting and focused reading */
+.library-extra{max-width:850px;margin:0 auto 16px;display:flex;gap:9px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.library-filters{display:flex;gap:7px;flex-wrap:wrap}
+.library-filters button{background:#f8f4ed;border:1px solid var(--line);color:#6e5b51;border-radius:22px;padding:9px 13px}
+.library-filters button.active{background:var(--plum);color:#fff;border-color:var(--plum)}
+.library-extra select{border:1px solid var(--line);background:#faf7f1;color:#5a4143;border-radius:22px;padding:9px 12px;font-size:11px}
+.library-actions{display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}
+.library-actions button{background:#eee6dc;color:#5a4143;padding:9px 11px;flex:1}
+.library-actions button.save-btn{background:#f2e7dc;color:#6b3d45}
+.library-actions button.save-btn.saved{background:#4b2c40;color:#fff}
+.reader-overlay{position:fixed;inset:0;background:#201820b8;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
+.reader-overlay.open{display:flex}
+.reader-sheet{width:min(100%,650px);max-height:90vh;overflow:auto;background:#f8f3e9;border:1px solid #d9cbbb;border-radius:16px;padding:clamp(24px,6vw,48px);box-shadow:0 24px 80px #0005;position:relative}
+.reader-close{position:sticky;top:0;float:right;background:#e9dfd2;color:#4b2c40;border-radius:50%;width:38px;height:38px;padding:0;font-size:18px}
+.reader-category{font-size:10px;letter-spacing:1.5px;color:#9b654e;margin:18px 0}
+.reader-text{font:500 clamp(22px,4vw,31px)/2 "Noto Serif Devanagari";white-space:pre-wrap;color:#3e2935;margin:22px 0 30px}
+.reader-author{font:15px "Noto Serif Devanagari";color:#9b654e;text-align:right}
+.reader-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.reader-tools button{background:#e9dfd2;color:#4b2c40}
+@media(max-width:560px){.library-extra{align-items:stretch}.library-extra select{width:100%}.library-filters button{font-size:10px}}
+
 </style>
 </head>
 <body>
@@ -77,6 +99,7 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
 <section id="libraryView" class="view active">
  <div class="library-hero"><div class="eyebrow">THE PARSHAVPAATH READING ROOM</div><h1>विचारों की एक छोटी-सी दुनिया।</h1><p>कुछ शब्द पढ़ने के लिए नहीं, अपने भीतर रखने के लिए होते हैं।</p></div>
  <div class="library-tools"><input id="librarySearch" type="search" placeholder="कोई शब्द, विचार या लेखक खोजें…" aria-label="Quotes खोजें"><div class="category-chips" id="categoryChips"><button class="active" data-category="all">सभी विचार</button></div></div>
+ <div class="library-extra"><div class="library-filters"><button id="showAll" class="active">सभी विचार</button><button id="showSaved">मेरे संग्रह ♡</button></div><select id="sortQuotes" aria-label="Quotes क्रम"> <option value="newest">नए पहले</option><option value="oldest">पुराने पहले</option><option value="az">लेखक के नाम से</option></select></div>
  <div class="library-meta"><span id="libraryCount">Quotes लोड हो रहे हैं…</span><span>Curated by पार्श्वपाठ</span></div>
  <div class="library-grid" id="libraryGrid" aria-live="polite"><div class="library-empty">विचारों का संग्रह तैयार हो रहा है…</div></div>
  <p class="library-note">यह संग्रह पार्श्वपाठ द्वारा चुने गए मूल विचारों और चुनिंदा साहित्यिक उद्धरणों का है।</p>
@@ -100,22 +123,40 @@ label{display:block;font-size:12px;font-weight:700;margin:0 0 7px}textarea,input
  <a href="https://x.com/Parshavpaath" target="_blank" rel="noopener noreferrer">X</a>
 </div>
 <div class="foot">PARSHAVPAATH · शब्दों के पीछे छुपे विचार</div>
+<div class="reader-overlay" id="readerOverlay" role="dialog" aria-modal="true" aria-label="Quote reading view"><article class="reader-sheet"><button class="reader-close" id="readerClose" aria-label="बंद करें">×</button><div class="reader-category" id="readerCategory"></div><div class="reader-text" id="readerText"></div><div class="reader-author" id="readerAuthor"></div><div class="reader-tools"><button id="readerCopy">कॉपी करें</button><button id="readerSave">♡ संग्रह में रखें</button></div></article></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://rwsosvgpbpfizzkczgjx.supabase.co";
 const SUPABASE_KEY="sb_publishable_unaQN7Yu07W2R4GAK0bx2w_gf-Id-94";
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
-let libraryQuotes=[],activeCategory='all',current=0;
+let libraryQuotes=[],activeCategory='all',current=0,showSavedOnly=false,readerItem=null;
+let savedQuoteIds=new Set();
+try{savedQuoteIds=new Set(JSON.parse(localStorage.getItem('pp_saved_quotes')||'[]').map(String))}catch(e){savedQuoteIds=new Set()}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function saveBookmarks(){localStorage.setItem('pp_saved_quotes',JSON.stringify([...savedQuoteIds]));}
+function toggleBookmark(id){id=String(id);savedQuoteIds.has(id)?savedQuoteIds.delete(id):savedQuoteIds.add(id);saveBookmarks();renderLibrary();if(readerItem&&String(readerItem.id)===id)updateReaderSaveButton();}
+function updateReaderSaveButton(){if(!readerItem)return;let saved=savedQuoteIds.has(String(readerItem.id));$('readerSave').textContent=saved?'♥ संग्रह में सेव है':'♡ संग्रह में रखें'}
+function openReader(item){readerItem=item;$('readerCategory').textContent=item.category||'विचार';$('readerText').textContent=item.text||'';$('readerAuthor').textContent='— '+(item.author||'अज्ञात');updateReaderSaveButton();$('readerOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeReader(){$('readerOverlay').classList.remove('open');document.body.style.overflow='';readerItem=null}
+$('readerClose').onclick=closeReader;$('readerOverlay').addEventListener('click',e=>{if(e.target===$('readerOverlay'))closeReader()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeReader()});
+$('readerCopy').onclick=async()=>{if(!readerItem)return;try{await navigator.clipboard.writeText(readerItem.text+'\n— '+(readerItem.author||'अज्ञात'));$('readerCopy').textContent='कॉपी हो गया ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}};
+$('readerSave').onclick=()=>{if(readerItem)toggleBookmark(readerItem.id)};
 function renderLibrary(){
  const term=($('librarySearch').value||'').trim().toLocaleLowerCase('hi');
- const filtered=libraryQuotes.filter(item=>(activeCategory==='all'||item.category===activeCategory)&&[item.text,item.author,item.category].join(' ').toLocaleLowerCase('hi').includes(term));
- $('libraryCount').textContent=filtered.length+' / '+libraryQuotes.length+' विचार';
- if(!filtered.length){$('libraryGrid').innerHTML='<div class="library-empty">इस खोज में कोई विचार नहीं मिला।</div>';return}
- $('libraryGrid').innerHTML=filtered.map(item=>'<article class="library-card"><div class="library-category">'+esc(item.category||'विचार')+'</div><blockquote>'+esc(item.text)+'</blockquote><footer><span>— '+esc(item.author||'अज्ञात')+'</span><span>'+(item.kind==='original'?'मूल विचार':'चयनित')+'</span></footer><div class="library-actions"><button data-copy="'+esc(item.id)+'">कॉपी करें</button></div></article>').join('');
- $('libraryGrid').querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{let item=libraryQuotes.find(x=>x.id===b.dataset.copy);if(!item)return;try{await navigator.clipboard.writeText(item.text+'\\n— '+item.author);b.textContent='कॉपी हो गया ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}});
+ let filtered=libraryQuotes.filter(item=>(activeCategory==='all'||item.category===activeCategory)&&(!showSavedOnly||savedQuoteIds.has(String(item.id)))&&[item.text,item.author,item.category].join(' ').toLocaleLowerCase('hi').includes(term));
+ const sort=$('sortQuotes').value;
+ if(sort==='oldest')filtered.reverse();else if(sort==='az')filtered.sort((a,b)=>String(a.author||'').localeCompare(String(b.author||''),'hi'));
+ $('libraryCount').textContent=filtered.length+' / '+libraryQuotes.length+' विचार'+(showSavedOnly?' · मेरे संग्रह':'');
+ if(!filtered.length){$('libraryGrid').innerHTML='<div class="library-empty">'+(showSavedOnly?'अभी आपने कोई विचार सेव नहीं किया है। किसी Quote पर ♡ दबाकर उसे यहाँ रखें।':'इस खोज में कोई विचार नहीं मिला।')+'</div>';return}
+ $('libraryGrid').innerHTML=filtered.map(item=>{let id=esc(item.id),saved=savedQuoteIds.has(String(item.id));return '<article class="library-card"><div class="library-category">'+esc(item.category||'विचार')+'</div><blockquote>'+esc(item.text)+'</blockquote><footer><span>— '+esc(item.author||'अज्ञात')+'</span><span>'+(item.kind==='original'?'मूल विचार':'चयनित')+'</span></footer><div class="library-actions"><button data-read="'+id+'">पूरा पढ़ें</button><button class="save-btn '+(saved?'saved':'')+'" data-save="'+id+'">'+(saved?'♥ सेव है':'♡ सेव करें')+'</button><button data-copy="'+id+'">कॉपी</button></div></article>'}).join('');
+ $('libraryGrid').querySelectorAll('[data-read]').forEach(b=>b.onclick=()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.read);if(item)openReader(item)});
+ $('libraryGrid').querySelectorAll('[data-save]').forEach(b=>b.onclick=()=>toggleBookmark(b.dataset.save));
+ $('libraryGrid').querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{let item=libraryQuotes.find(x=>String(x.id)===b.dataset.copy);if(!item)return;try{await navigator.clipboard.writeText(item.text+'\n— '+(item.author||'अज्ञात'));b.textContent='कॉपी ✓'}catch(e){alert('कॉपी करने की अनुमति नहीं मिली।')}});
 }
+$('showAll').onclick=()=>{showSavedOnly=false;$('showAll').classList.add('active');$('showSaved').classList.remove('active');renderLibrary()};
+$('showSaved').onclick=()=>{showSavedOnly=true;$('showSaved').classList.add('active');$('showAll').classList.remove('active');renderLibrary()};
+$('sortQuotes').addEventListener('change',renderLibrary);
 function renderCategories(){let cats=[...new Set(libraryQuotes.map(x=>x.category).filter(Boolean))];$('categoryChips').innerHTML='<button class="'+(activeCategory==='all'?'active':'')+'" data-category="all">सभी विचार</button>'+cats.map(c=>'<button class="'+(activeCategory===c?'active':'')+'" data-category="'+esc(c)+'">'+esc(c)+'</button>').join('');$('categoryChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{activeCategory=b.dataset.category;renderCategories();renderLibrary()})}
 const themes=['paper','', 'blue','earth','ink'];
 function renderReel(){let item=libraryQuotes[current];if(!item){$('reelQuote').textContent='अभी कोई विचार उपलब्ध नहीं है।';$('reelSign').textContent='— पार्श्वपाठ';$('reelCount').textContent='0 / 0';return}let card=$('reelCard');card.className='public-reel-card '+themes[current%themes.length];$('reelQuote').textContent=item.text;$('reelSign').textContent='— '+(item.author||'पार्श्वपाठ');$('reelCount').textContent=(current+1)+' / '+libraryQuotes.length}
